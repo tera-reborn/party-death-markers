@@ -4,7 +4,7 @@ module.exports = function PartyDeathMarkers(mod) {
 
   mod.game.on('enter_game', removeAllMarkers)
 
-  mod.hook('S_PARTY_MEMBER_LIST', 7, event => {
+  mod.hook('S_PARTY_MEMBER_LIST', 8, event => {
     members = event.members
   })
 
@@ -12,7 +12,7 @@ module.exports = function PartyDeathMarkers(mod) {
     spawnMarker(members.find(member => member.gameId === event.gameId), event.loc)
   })
 
-  mod.hook('S_SPAWN_USER', 15, event => {
+  mod.hook('S_SPAWN_USER', 17, event => {
     if (!event.alive)
       spawnMarker(members.find(member => member.gameId === event.gameId), event.loc)
   })
@@ -35,13 +35,13 @@ module.exports = function PartyDeathMarkers(mod) {
   })
 
   function spawnMarker(member, loc) {
-    if (!member || mod.game.me.is(member.gameId))
+    if (!member || mod.game.me.is(member.gameId)) 
       return
 
     removeMarker(member)
     markers.push(member.playerId)
 
-    mod.toClient('S_SPAWN_DROPITEM', 8, {
+    mod.toClient('S_SPAWN_DROPITEM', 9, {
       gameId: member.playerId,
       loc: loc,
       item: getMarker(member.class),
@@ -65,7 +65,7 @@ module.exports = function PartyDeathMarkers(mod) {
   }
 
   function removeMarker(member) {
-    if (!member)
+    if (!member) 
       return
 
     const id = member.playerId

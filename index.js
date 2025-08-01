@@ -1,84 +1,87 @@
 module.exports = function PartyDeathMarkers(mod) {
-  let members = []
-  let markers = []
+  let members = [];
+  let markers = [];
 
-  mod.game.on('enter_game', removeAllMarkers)
+  mod.game.on("enter_game", removeAllMarkers);
 
-  mod.hook('S_PARTY_MEMBER_LIST', 8, event => {
-    members = event.members
-  })
+  mod.hook("S_PARTY_MEMBER_LIST", 8, (event) => {
+    members = event.members;
+  });
 
-  mod.hook('S_DEAD_LOCATION', 2, event => {
-    spawnMarker(members.find(member => member.gameId === event.gameId), event.loc)
-  })
+  mod.hook("S_DEAD_LOCATION", 2, (event) => {
+    spawnMarker(
+      members.find((member) => member.gameId === event.gameId),
+      event.loc
+    );
+  });
 
-  mod.hook('S_SPAWN_USER', 17, event => {
+  mod.hook("S_SPAWN_USER", 17, (event) => {
     if (!event.alive)
-      spawnMarker(members.find(member => member.gameId === event.gameId), event.loc)
-  })
+      spawnMarker(
+        members.find((member) => member.gameId === event.gameId),
+        event.loc
+      );
+  });
 
-  mod.hook('S_PARTY_MEMBER_STAT_UPDATE', 3, event => {
-    if (mod.game.me.playerId === event.playerId)
-      return
+  mod.hook("S_PARTY_MEMBER_STAT_UPDATE", 3, (event) => {
+    if (mod.game.me.playerId === event.playerId) return;
 
     if (markers.length > 0 && event.alive && event.curHp > 0)
-      removeMarker(members.find(member => member.playerId === event.playerId))
-  })
+      removeMarker(members.find((member) => member.playerId === event.playerId));
+  });
 
-  mod.hook('S_LEAVE_PARTY_MEMBER', 2, event => {
-    removeMarker(members.find(member => member.playerId === event.playerId))
-  })
+  mod.hook("S_LEAVE_PARTY_MEMBER", 2, (event) => {
+    removeMarker(members.find((member) => member.playerId === event.playerId));
+  });
 
-  mod.hook('S_LEAVE_PARTY', 1, () => {
-    removeAllMarkers()
-    members = []
-  })
+  mod.hook("S_LEAVE_PARTY", 1, () => {
+    removeAllMarkers();
+    members = [];
+  });
 
   function spawnMarker(member, loc) {
-    if (!member || mod.game.me.is(member.gameId)) 
-      return
+    if (!member || mod.game.me.is(member.gameId)) return;
 
-    removeMarker(member)
-    markers.push(member.playerId)
+    removeMarker(member);
+    markers.push(member.playerId);
 
-    mod.toClient('S_SPAWN_DROPITEM', 9, {
+    mod.toClient("S_SPAWN_DROPITEM", 9, {
       gameId: member.playerId,
       loc: loc,
       item: getMarker(member.class),
       amount: 1,
       expiry: 999999,
-      owners: [{playerId: mod.game.me.playerId}]
-    })
+      owners: [{ playerId: mod.game.me.playerId }],
+    });
   }
 
   function getMarker(classid) {
     switch (classid) {
       case 1:
       case 10:
-        return 102064
+        return 102064;
       case 6:
       case 7:
-        return 88704
+        return 88704;
       default:
-        return 102026
+        return 102026;
     }
   }
 
   function removeMarker(member) {
-    if (!member) 
-      return
+    if (!member) return;
 
-    const id = member.playerId
+    const id = member.playerId;
     if (markers.includes(id)) {
-      mod.toClient('S_DESPAWN_DROPITEM', 4, {
-        gameId: id
-      })
-      markers = markers.filter(marker => marker !== id)
+      mod.toClient("S_DESPAWN_DROPITEM", 4, {
+        gameId: id,
+      });
+      markers = markers.filter((marker) => marker !== id);
     }
   }
 
   function removeAllMarkers() {
-    members.forEach(member => removeMarker(member))
-    markers = []
+    members.forEach((member) => removeMarker(member));
+    markers = [];
   }
-}
+};

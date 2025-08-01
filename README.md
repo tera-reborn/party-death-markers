@@ -1,6 +1,6 @@
 # party-death-markers
 
-Spawns large beacons on top of dead party members. Based on ![teralove](teralove/party-death-markers) version
+Spawns large beacons on top of dead party members. Based on ![teralove/party-death-markers](https://github.com/teralove/party-death-markers) version.
 
 ## Info
 

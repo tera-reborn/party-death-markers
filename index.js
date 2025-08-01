@@ -55,12 +55,12 @@ module.exports = function PartyDeathMarkers(mod) {
     switch (classid) {
       case 1:
       case 10:
-        return 91177
+        return 102064
       case 6:
       case 7:
-        return 91113
+        return 88704
       default:
-        return 98260
+        return 102026
     }
   }
 

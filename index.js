@@ -51,7 +51,7 @@ module.exports = function PartyDeathMarkers(mod) {
       item: getMarker(member.class),
       amount: 1,
       expiry: 999999,
-      owners: [{ playerId: mod.game.me.playerId }],
+      owners: [mod.game.me.playerId],
     });
   }
 

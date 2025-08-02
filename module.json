@@ -5,10 +5,11 @@
     "description": "Spawn beacons on top of dead party members.",
     "version": "1.0.0",
     "options": {
-        "niceName": "Party Death Markers"
+      "cliName": "PartyDeathMarkers",
+      "guiName": "Party Death Markers"
     },
     "servers": [
         "https://raw.githubusercontent.com/moznuy/party-death-markers/master/"
     ],
-    "supportUrl": "https://github.com/teralove/party-death-markers/issues/"
+    "supportUrl": "https://github.com/moznuy/party-death-markers/issues/"
 }

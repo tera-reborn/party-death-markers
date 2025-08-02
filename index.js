@@ -55,6 +55,18 @@ module.exports = function PartyDeathMarkers(mod) {
     });
   }
 
+  /*
+  Found ids in Arborea:
+  8026              blue-violet slightly swirl small (battle orb)
+  45411             blue easy straight small (kumas candy)
+  46703             big red-blue swirl (operation: velika invasion)
+    88704           same (velika banqet coin)
+  89807             small violet swirl (warlod bracing neklace)
+    102026          small violet swirl (no text) 
+    102064          small red swirl (no text)
+  110629            big red-blue swirl; (no text scroll item)
+    110684-110711   small light blue swirl (no text equipment item)
+  */
   function getMarker(classid) {
     switch (classid) {
       case 1:
@@ -73,9 +85,7 @@ module.exports = function PartyDeathMarkers(mod) {
 
     const id = member.playerId;
     if (markers.includes(id)) {
-      mod.toClient("S_DESPAWN_DROPITEM", 4, {
-        gameId: id,
-      });
+      mod.toClient("S_DESPAWN_DROPITEM", 4, { gameId: id });
       markers = markers.filter((marker) => marker !== id);
     }
   }

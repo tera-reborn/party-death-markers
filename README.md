@@ -10,3 +10,4 @@ Spawns large beacons on top of dead party members. Fork of ![teralove/party-deat
 ---
 
 ![Screenshot](https://i.postimg.cc/sfLRz30H/Patry-Death-Markers.png)
+![Screenshot](https://i.postimg.cc/RV6mBhGV/Screenshot-2025-08-08-151812.png)
